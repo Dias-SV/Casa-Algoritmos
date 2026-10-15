@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
@@ -77,17 +78,20 @@ public class Principal {
                     do {
                         String platillo = nextLine();
                         //Implementar busqueda del platillo para verificar su existencia y agregarlo a la lista 
+                        ArrayList<Platillo> platillos = new ArrayList<>();
+                        //platillo.add();
                     } while (!platillo.equals("."));
                     
-                    Restaurante.getPedidos().add();
+                    //Restaurante.getPedidos().add();
                     break;
 
                 case 2:
-
+                    String platillo = nextLine();
+                    //Implementar busqueda del platillo para verificar su existencia y verificar alergenos
                     break;
 
                 case 3:
-                    
+                    //Implementar busqueda del platill
                     break;
 
                 case 4:
