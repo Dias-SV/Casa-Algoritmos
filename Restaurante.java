@@ -2,11 +2,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Restaurante {
-    private ArrayList<Pedido> pedidos = new ArrayList<>();
-    private ArrayList<Platillo> platillos = new ArrayList<>();
+    private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Platillo> platillos = new ArrayList<>();
 
     public Restaurante() {
         cargarPlatillos();
+    }
+
+    public static ArrayList<Platillo> getPlatillos() {
+        return platillos;
+    }
+
+    public static ArrayList<Pedidos> getPedidos() {
+        return pedidos;
     }
 
     public agregarPedido (Pedido pedido) {

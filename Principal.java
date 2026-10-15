@@ -71,7 +71,15 @@ public class Principal {
 
             switch (opcion) {
                 case 1:
+                    System.out.print("\nNumero de mesa: ");
+                    int numero = entrada.nextInt();
                     
+                    do {
+                        String platillo = nextLine();
+                        //Implementar busqueda del platillo para verificar su existencia y agregarlo a la lista 
+                    } while (!platillo.equals("."));
+                    
+                    Restaurante.getPedidos().add();
                     break;
 
                 case 2:
@@ -107,11 +115,19 @@ public class Principal {
             
             switch (opcion) {
                 case 1:
-                    
+                    System.out.println("\nPedidos pendientes:");
                     break;
 
                 case 2:
-
+                    System.out.print("\nMarcar como completado el pedido (s/n)"); //Poner entre pedido y (s/n) el pedido hasta adelante del arreglo
+                    String confirmacion = entrada.nextLine().trim();
+                    
+                    if (confirmacion.equalsIgnoreCase("s")) {
+                        //Cambiar el estatus del pedido adelante del arreglo
+                    } else {
+                        System.out.println("Indique el pedido completado: ");
+                        //Hacer busqueda del pedido por id
+                    }
                     break;
 
                 case 3:

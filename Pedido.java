@@ -13,7 +13,7 @@ public class Pedido {
         this.mesaAsociada = mesaAsociada;
         this.listaDePlatillos = listaDePlatillos;
         this.horaLlegada = horaLlegada;
-        this.estatus = false;
+        this.estatus = true;
     }
 
     public void agregarPlatillo(Platillo platillo) {
