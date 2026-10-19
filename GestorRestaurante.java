@@ -10,7 +10,6 @@ public class GestorRestaurante {
         this.menuGeneral = menuGeneral;
     }
 
-
     public void ordenarCocina()
     {
         int tamano = this.listaPedidos.size();
