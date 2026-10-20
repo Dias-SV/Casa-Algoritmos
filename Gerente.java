@@ -13,12 +13,14 @@ public class Gerente extends Empleado {
         gestor.analizarVentas();
     }
     
-    public void agregarPlatilloNuevo(Restaurante menu){
-        menu.agregarPlatillo();
+    public void agregarPlatilloNuevo(Restaurante menu, Platillo platilloNuevo){
+        menu.agregarPlatillo(platilloNuevo);
     }
     
-    public void agregarMesa(int numero){
+    public void agregarMesa(Restaurante control, int numero){
         Mesa mesa = new Mesa(numero);
+        control.agregarMesa(mesa);
+        
     }
     
     public void buscarConsumo(GestorRestaurante gestor, float consumo){

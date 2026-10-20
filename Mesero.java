@@ -9,8 +9,8 @@ public class Mesero extends Empleado {
         return "Mesero";
     }
     
-    public void agregarPedido(){
-        
+    public void agregarPedido(Restaurante control, Pedido pedido){
+        control.agregarPedido(pedido);
     }
     
     public void verificarAlergenos(GestorRestaurante gestor, String alergeno){

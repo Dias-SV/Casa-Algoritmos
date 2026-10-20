@@ -14,7 +14,7 @@ public class GestorRestaurante {
     public void ordenarCocina()
     {
         int tamano = this.listaPedidos.size()-1;
-        for(int i=tamano; i>=0; i--)
+        for(int i=tamano-1; i>=0; i--)
         {
             if(this.listaPedidos.get(i).getCategoria()>this.listaPedidos.get(i+1).getCategoria()){
                 swap(i, i+1);
@@ -46,9 +46,14 @@ public class GestorRestaurante {
 
     public void revisarAlergenos(String alergeno)
     {
-        
-        
-        
+        System.out.println("Platillos que contienen el alérgeno: "+alergeno);
+        for(int i=0; i<this.menuGeneral.size(); i++)
+        {
+            if(this.menuGeneral.get(i).getIngredientes().contains(alergeno))
+            {
+                System.out.println("El platillo "+this.menuGeneral.get(i).getNombre()+" contiene "+alergeno);
+            }
+        }
     }
     
     public int consumoMesa(float consumo)
@@ -68,11 +73,11 @@ public class GestorRestaurante {
             }
             if(consumo < consumoLista)
             {
-                fin = medio - 1;
+                inicio = medio + 1;
             }
             if(consumo > consumoLista)
             {
-                inicio = medio + 1;
+                fin = medio - 1;
             }
         }
         return -1;
