@@ -14,14 +14,14 @@ public class Mesa {
         this.numMesa = numMesa;
     }
 
-    public int getOcupada() {
+    public int getOcupada(int ocupada) {
         return ocupada;
     }
     public void setOcupada(boolean ocupada) {
         this.ocupada = ocupada;
     }
 
-    public int getCuentaTotal() {
+    public float getCuentaTotal() {
         return cuentaTotal;
     }
     public void setCuentaTotal(float cuentaTotal) {

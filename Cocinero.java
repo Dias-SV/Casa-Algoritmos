@@ -8,4 +8,12 @@ public class Cocinero extends Empleado {
     public String getPuesto() {
         return "Cocinero";
     }
+
+    public void revisarLista(){
+        
+    }
+    
+    public void pedidoCompletado(){
+        
+    }
 }
