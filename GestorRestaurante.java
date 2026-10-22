@@ -29,7 +29,7 @@ public class GestorRestaurante {
             }
         }
     
-    public void buscarEstadoPedido(Pedido pedido)
+    public void buscarEstadoPedido(Pedido pedido) //Deberia usar uno de los parametros, no el objeto como tal
     {
         
     }

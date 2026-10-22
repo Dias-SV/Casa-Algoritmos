@@ -13,6 +13,7 @@ public class Mesero extends Empleado {
         control.agregarPedido(pedido);
     }
     
+    //Probablmente quitar estas dos por como se esta trabajando en el principal
     public void verificarAlergenos(GestorRestaurante gestor, String alergeno){
         gestor.revisarAlergenos(alergeno);  
     }

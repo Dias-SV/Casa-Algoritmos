@@ -14,7 +14,7 @@ public class Pedido {
         this.mesaAsociada = mesaAsociada;
         this.listaDePlatillos = listaDePlatillos;
         this.horaLlegada = horaLlegada;
-        this.estatus = true;
+        this.estatus = false;
     }
 
     public void agregarPlatillo(Platillo platillo) {
@@ -65,4 +65,13 @@ public class Pedido {
         this.categoria = categoria;
     }
 
+    public void mostrarPedido() {
+        System.out.println("ID: " + idPedido);
+        System.out.println("Numero de mesa: " + mesaAsociada.getNumMesa());
+        System.out.println("Platillos pedidos:");
+        listaDePlatillos.toString(); //Creo que esto no sirve, no probado
+        System.out.println("Hora de llegada: " + horaLlegada.toString());
+        System.out.println("Categoria: " + categoria);
+        System.out.println("Estatus: " + estatus);
+    }
 }
