@@ -185,8 +185,9 @@ public class Principal {
                 case 2:
                     System.out.print("Ingrese el nombre del platillo: ");
                     String nombre = entrada.nextLine();
-                    System.out.print("Ingrese la categoria: ");
-                    String categoria = entrada.nextLine();
+                    System.out.print("Ingrese el numero de la categoria: ");
+                    int categoria = entrada.nextInt();
+                    entrada.nextLine();
                     System.out.print("Ingrese el precio: ");
                     float precio = entrada.nextFloat();
                     entrada.nextLine();

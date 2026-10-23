@@ -71,7 +71,7 @@ public class Pedido {
         System.out.println("Platillos pedidos:");
         listaDePlatillos.toString(); //Creo que esto no sirve, no probado
         System.out.println("Hora de llegada: " + horaLlegada.toString());
-        System.out.println("Categoria: " + categoria);
+        //System.out.println("Categoria: " + categoria);
         System.out.println("Estatus: " + estatus);
     }
 }
