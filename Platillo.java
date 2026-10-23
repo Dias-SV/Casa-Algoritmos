@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class Platillo {
     private String nombre;
-    private String categoria;
+    private int categoria;
     private float precio;
     private ArrayList<String> ingredientes;
 
-    public Platillo(String nombre, String categoria, float precio, ArrayList<String> ingredientes) {
+    public Platillo(String nombre, int categoria, float precio, ArrayList<String> ingredientes) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
@@ -20,10 +20,10 @@ public class Platillo {
         this.nombre = nombre;
     }
 
-    public String getCategoria() {
+    public int getCategoria() {
         return categoria;
     }
-    public void setCategoria(String categoria) {
+    public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
 
