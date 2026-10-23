@@ -4,7 +4,8 @@ public class Principal {
     static Scanner entrada = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int opcion;
+        int opcion = 0;
+        boolean condition = true;
         
         do {
             Empleado empleado;

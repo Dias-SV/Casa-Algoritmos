@@ -6,7 +6,7 @@ public class Pedido {
     private Mesa mesaAsociada;
     private ArrayList<Platillo> listaDePlatillos;
     private LocalTime horaLlegada;
-    private int categoria;
+    //private int categoria;
     private boolean estatus;
 
     public Pedido(int idPedido, Mesa mesaAsociada, ArrayList<Platillo> listaDePlatillos, LocalTime horaLlegada) {
@@ -56,13 +56,13 @@ public class Pedido {
         this.estatus = estatus;
     }
 
-    public int getCategoria(){
+    /*public int getCategoria(){
         return categoria;
-    }
+    } 
 
     public void setCategoria(int categoria)
     {
         this.categoria = categoria;
-    }
+    }*/
 
 }
