@@ -8,7 +8,8 @@ public class Principal {
     static GestorRestaurante gestor = new GestorRestaurante(restaurante.getPedidos(), restaurante.getPlatillos());
 
     public static void main(String[] args) {
-        int opcion;
+        int opcion = 0;
+        boolean condition = true;
         
         do {
             Empleado empleado;

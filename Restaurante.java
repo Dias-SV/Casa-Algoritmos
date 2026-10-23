@@ -33,6 +33,6 @@ public class Restaurante {
 
     public static void cargarPlatillos() { //Probicional, se debe que arreglar como se aborda
         String[] ingredientes = {"Tortilla", "Carne"};
-        platillos.add(new Platillo("Tacos", "Mexicana", 1234.72f, new ArrayList<>(Arrays.asList(ingredientes))));
+        platillos.add(new Platillo("Tacos", 1 , 1234.72f, new ArrayList<>(Arrays.asList(ingredientes))));
     }
 }

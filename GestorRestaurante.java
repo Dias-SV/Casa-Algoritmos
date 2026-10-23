@@ -1,33 +1,57 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class GestorRestaurante {
     private ArrayList<Pedido> listaPedidos;
-    private ArrayList<Platillo> menuGeneral;
+    private ArrayList<Platillo> menuGeneral; //No se toca a menos que gerente agregue un nuevo platillo
+    private ArrayList<Platillo> listaPlatillos; //Lista para ordenar las categorias (no sale de la clase)
+
 
     public GestorRestaurante(ArrayList<Pedido> listaPedidos, ArrayList<Platillo> menuGeneral)
     {
         this.listaPedidos = listaPedidos;
         this.menuGeneral = menuGeneral;
+        this.listaPlatillos = new ArrayList<>();
     }
 
+    public void inicializarListaPlatillos(Pedido nuevoPedido){
+        for(Platillo platillo : nuevoPedido.getListaPlatillos())
+        {
+            this.listaPlatillos.add(platillo);
+        }
+    }
 
-    public void ordenarCocina()
+    public void ordenarCocina() //Trabajar con la lista de platillos
     {
-        int tamano = this.listaPedidos.size()-1;
+        int ordenado = 0;
+        int tamano = this.listaPlatillos.size();
         for(int i=tamano-1; i>=0; i--)
         {
-            if(this.listaPedidos.get(i).getCategoria()>this.listaPedidos.get(i+1).getCategoria()){
-                swap(i, i+1);
-            }
-            else if(this.listaPedidos.get(i).getCategoria()==this.listaPedidos.get(i+1).getCategoria())
+            ordenado = 1;
+            for(int j=0; j<i; j++)
+            {
+                if(this.listaPlatillos.get(j).getCategoria()>this.listaPlatillos.get(j+1).getCategoria()){
+                    swap(j, j+1);
+                    ordenado = 0;
+                }  
+                else if(this.listaPlatillos.get(j).getCategoria()==this.listaPlatillos.get(j+1).getCategoria())
                 {
-                    if(this.listaPedidos.get(i).getHoraLLegada().isAfter(this.listaPedidos.get(i+1).getHoraLLegada()))
+                    LocalTime hora1 = horaPedido(this.listaPlatillos.get(j));
+                    LocalTime hora2 = horaPedido(this.listaPlatillos.get(j+1));
+
+                    if(hora1.isAfter(hora2))
                     {
-                        swap(i, i+1);
+                        swap(j, j+1);
+                        ordenado = 0;
                     }
-                }
+                } 
+            }
+            if(ordenado == 1)
+            {
+                break;
             }
         }
+    }
     
     public void buscarEstadoPedido(Pedido pedido) //Deberia usar uno de los parametros, no el objeto como tal
     {
@@ -83,11 +107,25 @@ public class GestorRestaurante {
         return -1;
     }
 
+    private LocalTime horaPedido(Platillo platillo)
+    {
+        for(Pedido pedido : this.listaPedidos)
+        {
+            for(Platillo plat : pedido.getListaPlatillos())
+            {
+                if(plat == platillo){
+                    return pedido.getHoraLLegada();
+                }
+            }
+        }
+        return null;
+    }
+
     private void swap(int cambio1, int cambio2)
     {
-        Pedido aux = this.listaPedidos.get(cambio1);
-        this.listaPedidos.set(cambio1, this.listaPedidos.get(cambio2));
-        this.listaPedidos.set(cambio2, aux);
+        Platillo aux = this.listaPlatillos.get(cambio1);
+        this.listaPlatillos.set(cambio1, this.listaPlatillos.get(cambio2));
+        this.listaPlatillos.set(cambio2, aux);
     }
     
     private void quickSort(int inicio, int fin)
