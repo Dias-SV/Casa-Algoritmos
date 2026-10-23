@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -76,21 +77,33 @@ public class Principal {
             entrada.nextLine();
 
             switch (opcion) {
-                case 1:
+                case 1: //Todo esto probablemente lo cambie
                     System.out.print("\nNumero de mesa: ");
                     int numeroMesa = entrada.nextInt();
+                    Mesa mesa = null;
+                    for (Mesa mesas : restaurante.getMesas()) { //Cambiar a busqueda hash tal vez
+                        if (mesas.getNumMesa() == numeroMesa) {
+                            mesa = mesas;
+                            break;
+                        }
+                    }
 
+                    System.out.print("Platillos (presione '.' para acabar): ");
                     ArrayList<Platillo> platillos = new ArrayList<>();
                     String platillo = entrada.nextLine().trim();
-                    //Implementar busqueda del platillo para verificar su existencia y agregarlo a la lista 
                     while (!platillo.equals(".")) { //Puesta para tener una idea, no final
                         if (!platillo.isEmpty()) {
-                            platillos.add(platillo);    
+                            for (Platillo plato : restaurante.getPlatillos()) {
+                                if (plato.getNombre().equals(platillo)) {
+                                    platillos.add(plato); 
+                                    break;
+                                }
+                            }
                         }
                         platillo = entrada.nextLine().trim();
                     }
-                    
-                    //restaurante.getPedidos().add();
+                    //Provicional
+                    restaurante.agregarPedido(new Pedido(123, mesa, platillos, LocalTime.now()));
                     break;
 
                 case 2:
@@ -248,6 +261,6 @@ public class Principal {
                     break;
             }
             
-        } while (opcion != 4);
+        } while (opcion != 5);
     }
 }
