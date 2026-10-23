@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Principal {
     static Scanner entrada = new Scanner(System.in);
+    static Restaurante restaurante = new Restaurante();
+    static GestorRestaurante gestor = new GestorRestaurante(restaurante.getPedidos(), restaurante.getPlatillos());
 
     public static void main(String[] args) {
         int opcion = 0;
@@ -14,6 +18,7 @@ public class Principal {
             System.out.println("2. Cocinero");
             System.out.println("3. Gerente");
             System.out.println("4. Salir");
+            opcion = entrada.nextInt();
             entrada.nextLine(); //Limpiar buffer
 
             switch (opcion) {
@@ -55,7 +60,7 @@ public class Principal {
                     System.out.println("Opcion invalida");
 
             }
-        } while (condition);
+        } while (opcion != 4);
     }
 
     public static void menuMesero() {
@@ -72,15 +77,32 @@ public class Principal {
 
             switch (opcion) {
                 case 1:
+                    System.out.print("\nNumero de mesa: ");
+                    int numeroMesa = entrada.nextInt();
+
+                    ArrayList<Platillo> platillos = new ArrayList<>();
+                    String platillo = entrada.nextLine().trim();
+                    //Implementar busqueda del platillo para verificar su existencia y agregarlo a la lista 
+                    while (!platillo.equals(".")) { //Puesta para tener una idea, no final
+                        if (!platillo.isEmpty()) {
+                            platillos.add(platillo);    
+                        }
+                        platillo = entrada.nextLine().trim();
+                    }
                     
+                    //restaurante.getPedidos().add();
                     break;
 
                 case 2:
-
+                    System.out.print("Ingrese el nombre del alergeno: ");
+                    String alergeno = entrada.nextLine();
+                    gestor.revisarAlergenos(alergeno);
                     break;
 
                 case 3:
-                    
+                    System.out.print("Ingrese el numero de pedido: "); //Tal vez cambiarlo a usar la hora
+                    int numeroPedido = entrada.nextInt();
+                    gestor.buscarEstadoPedido(null);
                     break;
 
                 case 4:
@@ -108,11 +130,26 @@ public class Principal {
             
             switch (opcion) {
                 case 1:
-                    
+                    System.out.println("\nPedidos pendientes:");
+                    for (Pedido pedido : restaurante.getPedidos()) { 
+                        if (!pedido.getEstatus()) {
+                            pedido.mostrarPedido();   
+                        }
+                    }
                     break;
 
                 case 2:
-
+                    System.out.print("\nMarcar como completado el pedido (s/n)");
+                    Pedido pedido = restaurante.getPedidos().getFirst();
+                    pedido.mostrarPedido();
+                    String confirmacion = entrada.nextLine().trim();
+                    
+                    if (confirmacion.equalsIgnoreCase("s")) {
+                        pedido.setEstatus(true);
+                    } else {
+                        System.out.println("Indique el pedido completado: ");
+                        //Hacer busqueda del pedido por id
+                    }
                     break;
 
                 case 3:
@@ -134,27 +171,76 @@ public class Principal {
             System.out.println("1. Analizar ventas");
             System.out.println("2. Agregar platillo");
             System.out.println("3. Agregar mesa");
-            System.out.println("3. Buscar mesa por consumo");
-            System.out.println("4. Salir");
+            System.out.println("4. Buscar mesa por consumo");
+            System.out.println("5. Salir");
             System.out.print("Opcion: ");
             opcion = entrada.nextInt();
             entrada.nextLine();
 
             switch (opcion) {
                 case 1:
-                    
+                    gestor.analizarVentas();
                     break;
 
                 case 2:
+                    System.out.print("Ingrese el nombre del platillo: ");
+                    String nombre = entrada.nextLine();
+                    System.out.print("Ingrese el numero de la categoria: ");
+                    int categoria = entrada.nextInt();
+                    entrada.nextLine();
+                    System.out.print("Ingrese el precio: ");
+                    float precio = entrada.nextFloat();
+                    entrada.nextLine();
 
+                    System.out.println("Ingrese los ingredientes (presione '.' para terminar):");
+                    ArrayList<String> ingredientes = new ArrayList<>();
+                    String ingrediente = entrada.nextLine().trim();
+                    while (!ingrediente.equals(".")) {
+                        if (!ingrediente.isEmpty()) {
+                            ingredientes.add(ingrediente);    
+                        }
+                        ingrediente = entrada.nextLine().trim();
+                    }
+                    
+                    restaurante.agregarPlatillo(new Platillo(nombre, categoria, precio, ingredientes));
+                    System.out.println("Platillo agregado");
                     break;
 
                 case 3:
-                    System.out.println("Saliendo del menu..");
+                    System.out.print("Ingrese el numero de mesa: ");
+                    int numero = entrada.nextInt();
+                    entrada.nextLine();
+
+                    boolean existe = false;
+                    for (Mesa mesa : restaurante.getMesas()) { //Se puede mejorar haciendo una tabla hash
+                        if (mesa.getNumMesa() == numero) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (existe) {
+                        System.out.println("Ya se tiene una mesa con este numero");
+                    } else {
+                        restaurante.agregarMesa(new Mesa(numero));
+                        System.out.println("Mesa agregada");
+                    }
                     break;
 
                 case 4:
+                    System.out.print("Ingrese el consumo de la mesa: ");
+                    float consumo = entrada.nextFloat();
+                    int numeroMesa = gestor.consumoMesa(consumo);
 
+                    if (numeroMesa == -1) {
+                        System.out.println("No se encontro una mesa con este consumo");
+                    } else {
+                        System.out.println("La mesa con el consumo de " + consumo + " es la numero " + numeroMesa);
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Saliendo del menu..");
                     break;
             
                 default:
