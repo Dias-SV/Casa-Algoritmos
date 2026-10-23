@@ -27,9 +27,9 @@ public class GestorRestaurante {
         int tamano = this.listaPlatillos.size();
         for(int i=tamano-1; i>=0; i--)
         {
+            ordenado = 1;
             for(int j=0; j<i; j++)
             {
-                ordenado = 1;
                 if(this.listaPlatillos.get(j).getCategoria()>this.listaPlatillos.get(j+1).getCategoria()){
                     swap(j, j+1);
                     ordenado = 0;
