@@ -9,7 +9,7 @@ public class Mesero extends Empleado {
         return "Mesero";
     }
     
-    public void agregarPedido(Restaurante control, Pedido pedido){
+    /*public void agregarPedido(Restaurante control, Pedido pedido){
         control.agregarPedido(pedido);
     }
     
@@ -20,5 +20,5 @@ public class Mesero extends Empleado {
     
     public void buscarPedido(GestorRestaurante gestor, Pedido pedido){
         gestor.buscarEstadoPedido(pedido);
-    }
+    }*/
 }

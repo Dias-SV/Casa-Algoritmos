@@ -9,11 +9,11 @@ public class Cocinero extends Empleado {
         return "Cocinero";
     }
 
-    public void revisarLista(){
+    /*public void revisarLista(){
         
     }
     
     public void pedidoCompletado(){
         
-    }
+    }*/
 }

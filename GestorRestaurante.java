@@ -23,7 +23,7 @@ public class GestorRestaurante {
 
     public void ordenarCocina() //Trabajar con la lista de platillos
     {
-        int ordenado = 0;
+        int ordenado;
         int tamano = this.listaPlatillos.size();
         for(int i=tamano-1; i>=0; i--)
         {
@@ -53,9 +53,26 @@ public class GestorRestaurante {
         }
     }
     
-    public void buscarEstadoPedido(Pedido pedido) //Deberia usar uno de los parametros, no el objeto como tal
+    public void buscarEstadoPedido(int id)
     {
+        int encontrado = 0;
+        int capacidad = 101;
+        int direccionBuscar = id % capacidad;
+        ArrayList<ArrayList<Pedido>> tablaHash = funcionHash();
+        ArrayList<Pedido> obtener = tablaHash.get(direccionBuscar);
         
+        for(int i = 0; i<obtener.size(); i++)
+        {
+            if(obtener.get(i).getIdPedido() == id){
+                String estado = obtener.get(i).getEstatus() ? "Completado":"Pendiente";
+                System.out.println("El pedido "+obtener.get(i).getIdPedido()+" se encuentra "+estado);
+                encontrado = 1;
+                break;
+            }
+        }
+        if(encontrado == 0){
+            System.out.println("El pedido "+id+" no se encontró");
+        }
     }
 
     public void analizarVentas()
@@ -105,6 +122,24 @@ public class GestorRestaurante {
             }
         }
         return -1;
+    }
+
+    private ArrayList<ArrayList<Pedido>> funcionHash(){
+        int capacidad = 101;
+        ArrayList<ArrayList<Pedido>> listaColisiones = new ArrayList<>(capacidad);
+
+        for(int j=0; j<capacidad; j++)
+        {
+            listaColisiones.add(new ArrayList<> ());
+        }
+
+        for(int i= 0; i<this.listaPedidos.size(); i++)
+        {
+            int clave = this.listaPedidos.get(i).getIdPedido();
+            int direccion = clave % capacidad;
+            listaColisiones.get(direccion).add(this.listaPedidos.get(i));
+        }
+        return listaColisiones;
     }
 
     private LocalTime horaPedido(Platillo platillo)

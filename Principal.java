@@ -115,7 +115,7 @@ public class Principal {
                 case 3:
                     System.out.print("Ingrese el numero de pedido: "); //Tal vez cambiarlo a usar la hora
                     int numeroPedido = entrada.nextInt();
-                    gestor.buscarEstadoPedido(null);
+                    gestor.buscarEstadoPedido(numeroPedido);
                     break;
 
                 case 4:
