@@ -20,11 +20,6 @@ public class Pedido {
         listaDePlatillos.add(platillo);
     }
 
-    public void mostrarPedido()
-    {
-        
-    }
-
     public int getIdPedido() {
         return idPedido;
     }
