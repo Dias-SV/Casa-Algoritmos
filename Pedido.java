@@ -60,4 +60,22 @@ public class Pedido {
         this.estatus = estatus;
     }
 
+    /*public int getCategoria(){
+        return categoria;
+    } 
+
+    public void setCategoria(int categoria)
+    {
+        this.categoria = categoria;
+    }*/
+
+    public void mostrarPedido() {
+        System.out.println("ID: " + idPedido);
+        System.out.println("Numero de mesa: " + mesaAsociada.getNumMesa());
+        System.out.println("Platillos pedidos:");
+        listaDePlatillos.toString(); //Creo que esto no sirve, no probado
+        System.out.println("Hora de llegada: " + horaLlegada.toString());
+        //System.out.println("Categoria: " + categoria);
+        System.out.println("Estatus: " + estatus);
+    }
 }
