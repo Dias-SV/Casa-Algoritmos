@@ -202,7 +202,7 @@ public class Principal {
                     int categoria = entrada.nextInt();
                     entrada.nextLine();
                     System.out.print("Ingrese el precio: ");
-                    float precio = entrada.nextFloat();
+                    int precio = entrada.nextInt();
                     entrada.nextLine();
 
                     System.out.println("Ingrese los ingredientes (presione '.' para terminar):");
@@ -242,7 +242,7 @@ public class Principal {
 
                 case 4:
                     System.out.print("Ingrese el consumo de la mesa: ");
-                    float consumo = entrada.nextFloat();
+                    int consumo = entrada.nextInt();
                     int numeroMesa = gestor.consumoMesa(consumo);
 
                     if (numeroMesa == -1) {
