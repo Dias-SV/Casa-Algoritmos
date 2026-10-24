@@ -3,10 +3,10 @@ import java.util.ArrayList;
 public class Platillo {
     private String nombre;
     private int categoria;
-    private float precio;
+    private int precio;
     private ArrayList<String> ingredientes;
 
-    public Platillo(String nombre, int categoria, float precio, ArrayList<String> ingredientes) {
+    public Platillo(String nombre, int categoria, int precio, ArrayList<String> ingredientes) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
@@ -27,10 +27,10 @@ public class Platillo {
         this.categoria = categoria;
     }
 
-    public float getPrecio() {
+    public int getPrecio() {
         return precio;
     }
-    public void setPrecio(float precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 
