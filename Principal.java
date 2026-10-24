@@ -1,4 +1,3 @@
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -77,33 +76,21 @@ public class Principal {
             entrada.nextLine();
 
             switch (opcion) {
-                case 1: //Todo esto probablemente lo cambie
+                case 1:
                     System.out.print("\nNumero de mesa: ");
                     int numeroMesa = entrada.nextInt();
-                    Mesa mesa = null;
-                    for (Mesa mesas : restaurante.getMesas()) { //Cambiar a busqueda hash tal vez
-                        if (mesas.getNumMesa() == numeroMesa) {
-                            mesa = mesas;
-                            break;
-                        }
-                    }
 
-                    System.out.print("Platillos (presione '.' para acabar): ");
                     ArrayList<Platillo> platillos = new ArrayList<>();
                     String platillo = entrada.nextLine().trim();
+                    //Implementar busqueda del platillo para verificar su existencia y agregarlo a la lista 
                     while (!platillo.equals(".")) { //Puesta para tener una idea, no final
                         if (!platillo.isEmpty()) {
-                            for (Platillo plato : restaurante.getPlatillos()) {
-                                if (plato.getNombre().equals(platillo)) {
-                                    platillos.add(plato); 
-                                    break;
-                                }
-                            }
+                            platillos.add(platillo);    
                         }
                         platillo = entrada.nextLine().trim();
                     }
-                    //Provicional
-                    restaurante.agregarPedido(new Pedido(123, mesa, platillos, LocalTime.now()));
+                    
+                    //restaurante.getPedidos().add();
                     break;
 
                 case 2:
@@ -115,7 +102,7 @@ public class Principal {
                 case 3:
                     System.out.print("Ingrese el numero de pedido: "); //Tal vez cambiarlo a usar la hora
                     int numeroPedido = entrada.nextInt();
-                    gestor.buscarEstadoPedido(null);
+                    gestor.buscarEstadoPedido(numeroPedido);
                     break;
 
                 case 4:
@@ -261,6 +248,6 @@ public class Principal {
                     break;
             }
             
-        } while (opcion != 5);
+        } while (opcion != 4);
     }
 }

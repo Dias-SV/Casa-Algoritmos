@@ -9,7 +9,7 @@ public class Gerente extends Empleado {
         return "Gerente";
     }
     
-    public void analizarVentas(GestorRestaurante gestor){
+    /*public void analizarVentas(GestorRestaurante gestor){
         gestor.analizarVentas();
     }
     
@@ -25,5 +25,5 @@ public class Gerente extends Empleado {
     
     public void buscarConsumo(GestorRestaurante gestor, float consumo){
         int numeroMesa = gestor.consumoMesa(consumo);
-    }
+    }*/
 }
