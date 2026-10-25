@@ -28,7 +28,7 @@ public class Restaurante {
 
     public void cargarPlatillos() { //Probicional, se debe que arreglar como se aborda
         String[] ingredientes = {"Tortilla", "Carne"};
-        platillos.add(new Platillo("Tacos", 1 , 1234.72f, new ArrayList<>(Arrays.asList(ingredientes))));
+        platillos.add(new Platillo("Tacos", 1 , 123, new ArrayList<>(Arrays.asList(ingredientes))));
     }
 
     public ArrayList<Pedido> getPedidos(){

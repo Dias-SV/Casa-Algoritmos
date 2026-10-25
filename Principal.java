@@ -102,8 +102,7 @@ public class Principal {
                         }
                         platillo = entrada.nextLine().trim();
                     }
-                    //Provicional
-                    restaurante.agregarPedido(new Pedido(123, mesa, platillos, LocalTime.now()));
+                    restaurante.agregarPedido(new Pedido(gestor.idrandom(), mesa, platillos, LocalTime.now())); //ahora ya cada pedido genera un id random
                     break;
 
                 case 2:
@@ -152,16 +151,15 @@ public class Principal {
                     break;
 
                 case 2:
-                    System.out.print("\nMarcar como completado el pedido (s/n)");
+                    System.out.print("\nMarcar como completado el pedido? (s/n)");
                     Pedido pedido = restaurante.getPedidos().getFirst();
                     pedido.mostrarPedido();
                     String confirmacion = entrada.nextLine().trim();
                     
                     if (confirmacion.equalsIgnoreCase("s")) {
-                        pedido.setEstatus(true);
+                        gestor.buscarpedidoymarcar();
                     } else {
-                        System.out.println("Indique el pedido completado: ");
-                        //Hacer busqueda del pedido por id
+                        System.out.println("No se ha marcadoo ningun pedido como completado ");
                     }
                     break;
 

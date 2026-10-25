@@ -1,10 +1,12 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GestorRestaurante {
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Platillo> menuGeneral; //No se toca a menos que gerente agregue un nuevo platillo
     private ArrayList<Platillo> listaPlatillos; //Lista para ordenar las categorias (no sale de la clase)
+    private ArrayList<Pedido> pedidoscomp;
 
 
     public GestorRestaurante(ArrayList<Pedido> listaPedidos, ArrayList<Platillo> menuGeneral)
@@ -12,6 +14,7 @@ public class GestorRestaurante {
         this.listaPedidos = listaPedidos;
         this.menuGeneral = menuGeneral;
         this.listaPlatillos = new ArrayList<>();
+        this.pedidoscomp = new ArrayList<>();
     }
 
     public void inicializarListaPlatillos(Pedido nuevoPedido){
@@ -74,6 +77,21 @@ public class GestorRestaurante {
             System.out.println("El pedido "+id+" no se encontró");
         }
     }
+// metodo para generar un id de un pedido
+    public int idrandom(){
+
+        int idaleat = ThreadLocalRandom.current().nextInt(10000,1000000);
+        return  idaleat;
+    }
+// Implemente un metodo parecido al anterior que busca el estado de un pedido
+    public void buscarpedidoymarcar()
+    {
+        this.listaPedidos.get(0).setEstatus(true);
+        Pedido pedidolisto = this.listaPedidos.remove(0);
+        this.pedidoscomp.add(pedidolisto);
+        System.out.println("El pedido"+pedidolisto.getIdPedido()+"ha sido completado y esta listo para entrega");
+    }
+
 
     public void analizarVentas()
     {
@@ -192,5 +210,7 @@ public class GestorRestaurante {
     }
 
     }
+
+
 
     

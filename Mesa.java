@@ -1,7 +1,7 @@
 public class Mesa {
     private int numMesa;
     private boolean ocupada;
-    private float cuentaTotal;
+    private int cuentaTotal;
 
     public Mesa(int numMesa) {
         this.numMesa = numMesa;
@@ -21,10 +21,10 @@ public class Mesa {
         this.ocupada = ocupada;
     }
 
-    public float getCuentaTotal() {
+    public int getCuentaTotal() {
         return cuentaTotal;
     }
-    public void setCuentaTotal(float cuentaTotal) {
+    public void setCuentaTotal(int cuentaTotal) {
         this.cuentaTotal = cuentaTotal;
     }
 
