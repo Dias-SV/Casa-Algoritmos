@@ -7,6 +7,7 @@ public class GestorRestaurante {
     private ArrayList<Platillo> menuGeneral; //No se toca a menos que gerente agregue un nuevo platillo
     private ArrayList<Platillo> listaPlatillos; //Lista para ordenar las categorias (no sale de la clase)
     private ArrayList<Pedido> pedidoscomp;
+    private ArrayList<Pedido> venta;
 
 
     public GestorRestaurante(ArrayList<Pedido> listaPedidos, ArrayList<Platillo> menuGeneral)
@@ -15,6 +16,7 @@ public class GestorRestaurante {
         this.menuGeneral = menuGeneral;
         this.listaPlatillos = new ArrayList<>();
         this.pedidoscomp = new ArrayList<>();
+        this.venta = new ArrayList<>();
     }
 
     public void inicializarListaPlatillos(Pedido nuevoPedido){
@@ -100,9 +102,18 @@ public class GestorRestaurante {
 
     public void analizarVentas()
     {
-        quickSort(0, this.listaPedidos.size()-1);
+        this.venta.clear();
+        this.venta.addAll(this.listaPedidos);
+        this.venta.addAll(this.pedidoscomp);
+
+        if(this.venta.isEmpty())
+        {
+            System.out.println("\nNo hay ventas registradas en el sistema");
+            return;
+        }
+        quickSort(0, this.venta.size()-1);
         
-        for(Pedido pedido : this.listaPedidos)
+        for(Pedido pedido : this.venta)
         {
             System.out.println("La mesa "+pedido.getMesa().getNumMesa()+" tiene un consumo de $"+pedido.getMesa().getCuentaTotal());
         }
@@ -122,18 +133,27 @@ public class GestorRestaurante {
     
     public int consumoMesa(float consumo)
     {
-        quickSort(0, this.listaPedidos.size()-1);
+        this.venta.clear();
+        this.venta.addAll(this.listaPedidos);
+        this.venta.addAll(this.pedidoscomp);
+
+        if(this.venta.isEmpty()){
+            System.out.println("No es posible realizar el análisis de consumo por mesa");
+            return -1;
+        }
+
+        quickSort(0, this.venta.size()-1);
         int inicio = 0;
-        int fin = this.listaPedidos.size()-1;
+        int fin = this.venta.size()-1;
         
         while(inicio <= fin)
         {
             int medio = (inicio+fin)/2;
-            float consumoLista = this.listaPedidos.get(medio).getMesa().getCuentaTotal();
+            int consumoLista = this.venta.get(medio).getMesa().getCuentaTotal();
             
             if( consumoLista == consumo)
             {
-                return this.listaPedidos.get(medio).getMesa().getNumMesa();
+                return this.venta.get(medio).getMesa().getNumMesa();
             }
             if(consumo < consumoLista)
             {
@@ -185,12 +205,19 @@ public class GestorRestaurante {
         this.listaPlatillos.set(cambio1, this.listaPlatillos.get(cambio2));
         this.listaPlatillos.set(cambio2, aux);
     }
+
+    private void swapPedido(int cambio1, int cambio2)
+    {
+        Pedido aux = this.venta.get(cambio1);
+        this.venta.set(cambio1, this.venta.get(cambio2));
+        this.venta.set(cambio2, aux);
+    }
     
-    private void quickSort(int inicio, int fin)
+    private void quickSort( int inicio, int fin)
     {
         if(inicio < fin)
         {
-            int indicePivote = partition(inicio, fin);
+            int indicePivote = partition( inicio, fin);
             quickSort(inicio, indicePivote-1);
             quickSort(indicePivote+1, fin);
             
@@ -199,18 +226,18 @@ public class GestorRestaurante {
     
     private int partition(int inicio, int fin)
     {
-        float pivote = this.listaPedidos.get(fin).getMesa().getCuentaTotal();
+        float pivote = this.venta.get(fin).getMesa().getCuentaTotal();
         int i = inicio -1;
         int j = inicio-1;
         for( j= inicio; j<= fin -1; j++)
         {
-            if(this.listaPedidos.get(j).getMesa().getCuentaTotal() >= pivote)
+            if(this.venta.get(j).getMesa().getCuentaTotal() >= pivote)
             {
                 i = i + 1;
-                swap(i, j);
+                swapPedido(i, j);
             }
         }
-        swap(i, j);
+        swapPedido(i, j);
         return i+1;
     }
 

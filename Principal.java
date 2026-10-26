@@ -103,11 +103,13 @@ public class Principal {
                     System.out.print("Platillos (presione '.' para acabar): ");
                     ArrayList<Platillo> platillos = new ArrayList<>();
                     String platillo = entrada.nextLine().trim();
+                    int cuenta = 0;
                     while (!platillo.equals(".")) { //Puesta para tener una idea, no final
                         if (!platillo.isEmpty()) {
                             for (Platillo plato : restaurante.getPlatillos()) {
                                 if (plato.getNombre().equalsIgnoreCase(platillo.trim())) {
                                     platillos.add(plato); 
+                                    cuenta += plato.getPrecio();
                                     break;
                                 }
                             }
@@ -121,6 +123,7 @@ public class Principal {
                     }
                     int idAsignado = gestor.idrandom();
                     mesa.setOcupada(true);
+                    mesa.setCuentaTotal(cuenta);
 
                     restaurante.agregarPedido(new Pedido(idAsignado, mesa, platillos, LocalTime.now())); //ahora ya cada pedido genera un id random
                     System.out.println("ID del pedido: "+idAsignado);
