@@ -68,9 +68,14 @@ public class Pedido {
         System.out.println("ID: " + idPedido);
         System.out.println("Numero de mesa: " + mesaAsociada.getNumMesa());
         System.out.println("Platillos pedidos:");
-        listaDePlatillos.toString(); //Creo que esto no sirve, no probado
+        
+        for(Platillo platillo : listaDePlatillos)
+        {
+            System.out.println("-"+platillo.getNombre());
+        }
         System.out.println("Hora de llegada: " + horaLlegada.toString());
         //System.out.println("Categoria: " + categoria);
-        System.out.println("Estatus: " + estatus);
+        String estatusPedido = (estatus) ? "Terminado" : "Pendiente";
+        System.out.println("Estatus: " + estatusPedido);
     }
 }

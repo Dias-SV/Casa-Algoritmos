@@ -79,6 +79,8 @@ public class Principal {
                 case 1: //Todo esto probablemente lo cambie
                     System.out.print("\nNumero de mesa: ");
                     int numeroMesa = entrada.nextInt();
+                    entrada.nextLine();
+
                     Mesa mesa = null;
                     for (Mesa mesas : restaurante.getMesas()) { //Cambiar a busqueda hash tal vez
                         if (mesas.getNumMesa() == numeroMesa) {
@@ -87,13 +89,24 @@ public class Principal {
                         }
                     }
 
+                    if(mesa == null)
+                    {
+                        System.out.println("La mesa "+numeroMesa+" no existe");
+                        break;
+                    }
+
+                    if(mesa.isOcupada()){
+                        System.out.println("La mesa "+numeroMesa+" ya se encuentra ocupada.");
+                        break;
+                    }
+
                     System.out.print("Platillos (presione '.' para acabar): ");
                     ArrayList<Platillo> platillos = new ArrayList<>();
                     String platillo = entrada.nextLine().trim();
                     while (!platillo.equals(".")) { //Puesta para tener una idea, no final
                         if (!platillo.isEmpty()) {
                             for (Platillo plato : restaurante.getPlatillos()) {
-                                if (plato.getNombre().equals(platillo)) {
+                                if (plato.getNombre().equalsIgnoreCase(platillo.trim())) {
                                     platillos.add(plato); 
                                     break;
                                 }
@@ -101,7 +114,16 @@ public class Principal {
                         }
                         platillo = entrada.nextLine().trim();
                     }
-                    restaurante.agregarPedido(new Pedido(gestor.idrandom(), mesa, platillos, LocalTime.now())); //ahora ya cada pedido genera un id random
+
+                    if(platillos.isEmpty()){
+                        System.out.println("No es posible registrar un pedido sin un platillo");
+                        break;
+                    }
+                    int idAsignado = gestor.idrandom();
+                    mesa.setOcupada(true);
+
+                    restaurante.agregarPedido(new Pedido(idAsignado, mesa, platillos, LocalTime.now())); //ahora ya cada pedido genera un id random
+                    System.out.println("ID del pedido: "+idAsignado);
                     break;
 
                 case 2:
@@ -142,24 +164,41 @@ public class Principal {
             switch (opcion) {
                 case 1:
                     System.out.println("\nPedidos pendientes:");
-                    for (Pedido pedido : restaurante.getPedidos()) { 
-                        if (!pedido.getEstatus()) {
-                            pedido.mostrarPedido();   
-                        }
+                    if(restaurante.getPedidos().isEmpty())
+                    {
+                        System.out.println("No hay pedidos pendientes en este momento");
                     }
+                    else
+                    {
+                        for (Pedido pedido : restaurante.getPedidos()) { 
+                            if (!pedido.getEstatus()) {
+                                pedido.mostrarPedido();   
+                            }
+                        }   
+                    }
+                    
                     break;
 
                 case 2:
-                    System.out.print("\nMarcar como completado el pedido? (s/n)");
+                    System.out.print("\nMarcar como completado el pedido? (s/n)\n");
+                    if(restaurante.getPedidos().isEmpty())
+                    {
+                        gestor.buscarpedidoymarcar();
+                        break;    
+                    }
+                    
                     Pedido pedido = restaurante.getPedidos().getFirst();
                     pedido.mostrarPedido();
                     String confirmacion = entrada.nextLine().trim();
                     
-                    if (confirmacion.equalsIgnoreCase("s")) {
-                        gestor.buscarpedidoymarcar();
-                    } else {
-                        System.out.println("No se ha marcadoo ningun pedido como completado ");
-                    }
+                    
+                        if (confirmacion.equalsIgnoreCase("s")) {
+                            gestor.buscarpedidoymarcar();
+                        } else {
+                            System.out.println("No se ha marcado ningún pedido como completado ");
+                        }   
+                    
+                    
                     break;
 
                 case 3:

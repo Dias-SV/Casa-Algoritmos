@@ -8,6 +8,7 @@ public class Restaurante {
 
     public Restaurante() { //Para testing
         cargarPlatillos();
+        cargarMesas();
     }
 
     public void agregarPedido (Pedido pedido) {
@@ -53,8 +54,14 @@ public class Restaurante {
         platillos.add(new Platillo("Arroz de la Abuela", 3, 140, new ArrayList<>(Arrays.asList("Arroz blanco", "Leche entera", "Leche condensada", "Azúcar refinada", "Canela", "Pasas", "Vainilla", "Fécula de maíz", "Harina de trigo", "Mantequilla", "Clara de huevo"))));
         platillos.add(new Platillo("Cielo rojo de bayas", 3, 170, new ArrayList<>(Arrays.asList("Fresas", "Arándano azul", "Zarzamora", "Frambuesa", "Yogurt natural", "Amaranto", "Miel"))));
         
-        String[] ingredientes = {"Tortilla", "Carne"};
-        platillos.add(new Platillo("Tacos", 1 , 123, new ArrayList<>(Arrays.asList(ingredientes))));
+    }
+
+    public void cargarMesas()
+    {
+        for(int i=0; i<=15; i++)
+        {
+            mesas.add(new Mesa(i));
+        }
     }
 
     public ArrayList<Pedido> getPedidos(){

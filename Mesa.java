@@ -5,6 +5,8 @@ public class Mesa {
 
     public Mesa(int numMesa) {
         this.numMesa = numMesa;
+        this.ocupada = false;
+        this.cuentaTotal = 0;
     }
 
     public int getNumMesa() {
@@ -14,7 +16,7 @@ public class Mesa {
         this.numMesa = numMesa;
     }
 
-    public int getOcupada(int ocupada) {
+    public boolean isOcupada() {
         return ocupada;
     }
     public void setOcupada(boolean ocupada) {

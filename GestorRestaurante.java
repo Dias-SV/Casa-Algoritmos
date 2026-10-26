@@ -80,16 +80,21 @@ public class GestorRestaurante {
 // metodo para generar un id de un pedido
     public int idrandom(){
 
-        int idaleat = ThreadLocalRandom.current().nextInt(10000,1000000);
+        int idaleat = ThreadLocalRandom.current().nextInt(10000,100000);
         return  idaleat;
     }
 // Implemente un metodo parecido al anterior que busca el estado de un pedido
     public void buscarpedidoymarcar()
     {
+        if(this.listaPedidos.isEmpty())
+        {
+            System.out.println("No hay pedidos pendientes por completar");
+            return;
+        }
         this.listaPedidos.get(0).setEstatus(true);
         Pedido pedidolisto = this.listaPedidos.remove(0);
         this.pedidoscomp.add(pedidolisto);
-        System.out.println("El pedido"+pedidolisto.getIdPedido()+"ha sido completado y esta listo para entrega");
+        System.out.println("El pedido "+pedidolisto.getIdPedido()+" ha sido completado y está listo para entregar");
     }
 
 
