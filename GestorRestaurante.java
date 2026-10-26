@@ -110,7 +110,7 @@ public class GestorRestaurante {
         {
             if(this.menuGeneral.get(i).getIngredientes().contains(alergeno))
             {
-                System.out.println("El platillo "+this.menuGeneral.get(i).getNombre()+" contiene "+alergeno);
+                System.out.println((i+1)+"."+this.menuGeneral.get(i).getNombre());
             }
         }
     }
