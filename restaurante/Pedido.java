@@ -56,15 +56,6 @@ public class Pedido {
         this.estatus = estatus;
     }
 
-    /*public int getCategoria(){
-        return categoria;
-    } 
-
-    public void setCategoria(int categoria)
-    {
-        this.categoria = categoria;
-    }*/
-
     public void mostrarPedido() {
         System.out.println("ID: " + idPedido);
         System.out.println("Numero de mesa: " + mesaAsociada.getNumMesa());
@@ -75,7 +66,6 @@ public class Pedido {
             System.out.println("-"+platillo.getNombre());
         }
         System.out.println("Hora de llegada: " + horaLlegada.toString());
-        //System.out.println("Categoria: " + categoria);
         String estatusPedido = (estatus) ? "Terminado" : "Pendiente";
         System.out.println("Estatus: " + estatusPedido);
     }

@@ -80,7 +80,8 @@ public class Principal {
             System.out.println("1. Agregar pedido");
             System.out.println("2. Verificar alergenos");
             System.out.println("3. Buscar pedido");
-            System.out.println("4. Salir");
+            System.out.println("4. Mostrar pedidos completados");
+            System.out.println("5. Salir");
             System.out.print("Opción: ");
             opcion = entrada.nextInt();
             entrada.nextLine();
@@ -178,6 +179,10 @@ public class Principal {
                     break;
 
                 case 4:
+                    
+                    gestor.mostrarCompletados();
+                    break;
+                case 5:
                     System.out.println("Saliendo del menú..");
                     break;
             
@@ -186,7 +191,7 @@ public class Principal {
                     break;
             }
 
-        } while (opcion != 4);
+        } while (opcion != 5);
     }
 
     public static void menuCocinero() {

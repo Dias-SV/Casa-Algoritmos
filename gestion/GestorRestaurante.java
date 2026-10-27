@@ -156,10 +156,10 @@ public class GestorRestaurante {
 
     public void revisarAlergenos(String alergeno)
     {
+        boolean encontrado = false;
         System.out.println("\nPlatillos que contienen el alérgeno: "+alergeno);
         for(int i=0; i<this.menuGeneral.size(); i++)
         {
-            boolean encontrado = false;
             for(String alergenos : this.menuGeneral.get(i).getIngredientes())
             {
                 if(alergenos.trim().equalsIgnoreCase(alergeno.trim()))
@@ -173,8 +173,10 @@ public class GestorRestaurante {
                System.out.println((i+1)+". "+this.menuGeneral.get(i).getNombre()); 
             }
         }
-        System.out.println("\nNo se encontró ninguna coincidencia en el menú");
-
+        if(!encontrado)
+        {
+            System.out.println("\nNo se encontró ninguna coincidencia en el menú");
+        }
     }
     
     public int consumoMesa(float consumo)
@@ -287,8 +289,26 @@ public class GestorRestaurante {
         return i+1;
     }
 
+    public void mostrarCompletados()
+    {
+        if(this.pedidoscomp.isEmpty())
+        {
+            System.out.println("\nNo hay pedidos completados hasta el momento");
+        }
+        else
+        {
+            System.out.println("\nPedidos completados: ");
+            for(Pedido pedido : this.pedidoscomp)
+                {
+                    pedido.mostrarPedido();
+
+                } 
+        }
+        
     }
 
+    }
 
+    
 
     
