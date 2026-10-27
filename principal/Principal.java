@@ -123,23 +123,29 @@ public class Principal {
                         break;
                     }
 
-                    System.out.print("Platillos (presione '.' para acabar): ");
+
+                    System.out.println("Ingrese los platillos separados por comas (ej. Tacos al pastor, Birria):");
                     ArrayList<Platillo> platillos = new ArrayList<>();
                     String platillo = entrada.nextLine().trim();
                     int cuenta = 0;
-                    while (!platillo.equals(".")) { //Puesta para tener una idea, no final
-                        if (!platillo.isEmpty()) {
-                            for (Platillo plato : restaurante.getPlatillos()) {
-                                if (plato.getNombre().equalsIgnoreCase(platillo.trim())) {
+                    if(!platillo.isEmpty()) {
+                        String[] division = platillo.split(",");
+                        for(String divide : division)
+                        {
+                            String formaFinal = divide.trim();
+                            if(!formaFinal.isEmpty()) {
+
+                                for (Platillo plato : restaurante.getPlatillos()) {
+                                if (plato.getNombre().equalsIgnoreCase(formaFinal.trim())) {
                                     platillos.add(plato); 
                                     cuenta += plato.getPrecio();
                                     break;
+                                    }
+
                                 }
                             }
                         }
-                        platillo = entrada.nextLine().trim();
                     }
-
                     if(platillos.isEmpty()){
                         System.out.println("No es posible registrar un pedido sin un platillo");
                         break;
@@ -161,6 +167,11 @@ public class Principal {
                     break;
 
                 case 3:
+                    System.out.println("\nLista de pedidos");
+                    for(Pedido pedidos : restaurante.getPedidos())
+                    {
+                        System.out.println("- Pedido "+pedidos.getIdPedido());
+                    }
                     System.out.print("Ingrese el número de pedido: "); //Tal vez cambiarlo a usar la hora
                     int numeroPedido = entrada.nextInt();
                     gestor.buscarEstadoPedido(numeroPedido);
@@ -272,14 +283,19 @@ public class Principal {
                     int precio = entrada.nextInt();
                     entrada.nextLine();
 
-                    System.out.println("Ingrese los ingredientes (presione '.' para terminar):");
+                    System.out.println("Ingrese los ingredientes separados por comas (ej. Tomate, Cebolla):");
                     ArrayList<String> ingredientes = new ArrayList<>();
                     String ingrediente = entrada.nextLine().trim();
-                    while (!ingrediente.equals(".")) {
-                        if (!ingrediente.isEmpty()) {
-                            ingredientes.add(ingrediente);    
+                    if(!ingrediente.isEmpty()) {
+                        String[] division = ingrediente.split(",");
+                        for(String divide : division)
+                        {
+                            String formaFinal = divide.trim();
+                            if(!formaFinal.isEmpty())
+                            {
+                                ingredientes.add(formaFinal);
+                            }
                         }
-                        ingrediente = entrada.nextLine().trim();
                     }
                     
                     restaurante.agregarPlatillo(new Platillo(nombre, categoria, precio, ingredientes));
