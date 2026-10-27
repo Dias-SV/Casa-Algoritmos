@@ -1,13 +1,12 @@
 package principal;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import empleados.Cocinero;
 import empleados.Empleado;
 import empleados.Gerente;
 import empleados.Mesero;
 import gestion.GestorRestaurante;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Scanner;
 import restaurante.Mesa;
 import restaurante.Pedido;
 import restaurante.Platillo;
@@ -88,7 +87,7 @@ public class Principal {
 
             switch (opcion) {
                 case 1: //Todo esto probablemente lo cambie
-                    System.out.println("---- MENÚ DE RESTAURANTE ----");
+                    System.out.println("\n---- MENÚ DE RESTAURANTE ----");
                     for(Platillo platillos : restaurante.getPlatillos())
                     {
                         String nombre = "";

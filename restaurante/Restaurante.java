@@ -77,7 +77,7 @@ public class Restaurante {
         return this.platillos;
     }
 
-    public void getPlatillos(ArrayList<Platillo> platillos)
+    public void setPlatillos(ArrayList<Platillo> platillos)
     {
         this.platillos = platillos;
     }

@@ -1,8 +1,8 @@
 package gestion;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
 import restaurante.Pedido;
 import restaurante.Platillo;
 
@@ -69,11 +69,11 @@ public class GestorRestaurante {
 
         String nombre = "";
         if(categoria == 1)
-            nombre = "Entradas";
+            nombre = "\nEntradas";
         else if(categoria == 2)
-            nombre = "Platos Fuertes";
+            nombre = "\nPlatos Fuertes";
         else if(categoria == 3)
-            nombre = "Postres";
+            nombre = "\nPostres";
         
         System.out.println(nombre.toUpperCase());
         boolean encontrado = false;
@@ -125,13 +125,13 @@ public class GestorRestaurante {
     {
         if(this.listaPedidos.isEmpty())
         {
-            System.out.println("No hay pedidos pendientes por completar");
+            System.out.println("\nNo hay pedidos pendientes por completar");
             return;
         }
         this.listaPedidos.get(0).setEstatus(true);
         Pedido pedidolisto = this.listaPedidos.remove(0);
         this.pedidoscomp.add(pedidolisto);
-        System.out.println("El pedido "+pedidolisto.getIdPedido()+" ha sido completado y está listo para entregar");
+        System.out.println("\nEl pedido "+pedidolisto.getIdPedido()+" ha sido completado y está listo para entregar");
     }
 
 
@@ -156,14 +156,25 @@ public class GestorRestaurante {
 
     public void revisarAlergenos(String alergeno)
     {
-        System.out.println("Platillos que contienen el alérgeno: "+alergeno);
+        System.out.println("\nPlatillos que contienen el alérgeno: "+alergeno);
         for(int i=0; i<this.menuGeneral.size(); i++)
         {
-            if(this.menuGeneral.get(i).getIngredientes().contains(alergeno))
+            boolean encontrado = false;
+            for(String alergenos : this.menuGeneral.get(i).getIngredientes())
             {
-                System.out.println((i+1)+"."+this.menuGeneral.get(i).getNombre());
+                if(alergenos.trim().equalsIgnoreCase(alergeno.trim()))
+                {
+                   encontrado = true;
+                   break; 
+                }  
+            }
+            if(encontrado)
+            {
+               System.out.println((i+1)+". "+this.menuGeneral.get(i).getNombre()); 
             }
         }
+        System.out.println("\nNo se encontró ninguna coincidencia en el menú");
+
     }
     
     public int consumoMesa(float consumo)
@@ -173,7 +184,7 @@ public class GestorRestaurante {
         this.venta.addAll(this.pedidoscomp);
 
         if(this.venta.isEmpty()){
-            System.out.println("No es posible realizar el análisis de consumo por mesa");
+            System.out.println("\nNo es posible realizar el análisis de consumo por mesa");
             return -1;
         }
 
