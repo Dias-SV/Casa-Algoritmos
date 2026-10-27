@@ -1,3 +1,4 @@
+package restaurante;
 public class Mesa {
     private int numMesa;
     private boolean ocupada;

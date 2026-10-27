@@ -1,3 +1,4 @@
+package empleados;
 public class Empleado {
     
     private String nombre;

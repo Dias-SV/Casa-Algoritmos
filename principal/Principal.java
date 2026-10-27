@@ -1,6 +1,17 @@
+package principal;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import empleados.Cocinero;
+import empleados.Empleado;
+import empleados.Gerente;
+import empleados.Mesero;
+import gestion.GestorRestaurante;
+import restaurante.Mesa;
+import restaurante.Pedido;
+import restaurante.Platillo;
+import restaurante.Restaurante;
 
 public class Principal {
     static Scanner entrada = new Scanner(System.in);

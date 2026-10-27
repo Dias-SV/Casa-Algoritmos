@@ -1,6 +1,10 @@
+package gestion;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import restaurante.Pedido;
+import restaurante.Platillo;
 
 public class GestorRestaurante {
     private ArrayList<Pedido> listaPedidos;
