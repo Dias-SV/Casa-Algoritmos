@@ -57,7 +57,7 @@ public class Principal {
                     break;
 
                 default:
-                    System.out.println("Opcion invalida");
+                    System.out.println("Opción invalida");
 
             }
         } while (opcion != 4);
@@ -66,18 +66,31 @@ public class Principal {
     public static void menuMesero() {
         int opcion;
         do {
-            System.out.println("\nMenu de opciones:");
+            System.out.println("\nMenú de opciones:");
             System.out.println("1. Agregar pedido");
             System.out.println("2. Verificar alergenos");
             System.out.println("3. Buscar pedido");
             System.out.println("4. Salir");
-            System.out.print("Opcion: ");
+            System.out.print("Opción: ");
             opcion = entrada.nextInt();
             entrada.nextLine();
 
             switch (opcion) {
                 case 1: //Todo esto probablemente lo cambie
-                    System.out.print("\nNumero de mesa: ");
+                    System.out.println("---- MENÚ DE RESTAURANTE ----");
+                    for(Platillo platillos : restaurante.getPlatillos())
+                    {
+                        String nombre = "";
+                        if(platillos.getCategoria() == 1)
+                            nombre = "Entradas";
+                        else if(platillos.getCategoria() == 2)
+                            nombre = "Platos Fuertes";
+                        else if(platillos.getCategoria()== 3)
+                            nombre = "Postres";
+
+                        System.out.println("- "+platillos.getNombre()+". $"+platillos.getPrecio());
+                    }
+                    System.out.print("\nNúmero de mesa: ");
                     int numeroMesa = entrada.nextInt();
                     entrada.nextLine();
 
@@ -125,28 +138,30 @@ public class Principal {
                     mesa.setOcupada(true);
                     mesa.setCuentaTotal(cuenta);
 
-                    restaurante.agregarPedido(new Pedido(idAsignado, mesa, platillos, LocalTime.now())); //ahora ya cada pedido genera un id random
+                    Pedido pedido = new Pedido(idAsignado, mesa, platillos, LocalTime.now());
+                    restaurante.agregarPedido(pedido); //ahora ya cada pedido genera un id random
+                    gestor.inicializarListaPlatillos(pedido);
                     System.out.println("ID del pedido: "+idAsignado);
                     break;
 
                 case 2:
-                    System.out.print("Ingrese el nombre del alergeno: ");
+                    System.out.print("Ingrese el nombre del alérgeno: ");
                     String alergeno = entrada.nextLine();
                     gestor.revisarAlergenos(alergeno);
                     break;
 
                 case 3:
-                    System.out.print("Ingrese el numero de pedido: "); //Tal vez cambiarlo a usar la hora
+                    System.out.print("Ingrese el número de pedido: "); //Tal vez cambiarlo a usar la hora
                     int numeroPedido = entrada.nextInt();
                     gestor.buscarEstadoPedido(numeroPedido);
                     break;
 
                 case 4:
-                    System.out.println("Saliendo del menu..");
+                    System.out.println("Saliendo del menú..");
                     break;
             
                 default:
-                    System.out.println("Opcion invalida");
+                    System.out.println("Opción invalida");
                     break;
             }
 
@@ -156,10 +171,11 @@ public class Principal {
     public static void menuCocinero() {
         int opcion;
         do {
-            System.out.println("\nMenu de opciones:");
+            System.out.println("\nMenú de opciones:");
             System.out.println("1. Ver lista de pedidos");
-            System.out.println("2. Marcar pedido como completado");
-            System.out.println("3. Salir");
+            System.out.println("2. Ver lista de platillos");
+            System.out.println("3. Marcar pedido como completado");
+            System.out.println("4. Salir");
             System.out.print("Opcion: ");
             opcion = entrada.nextInt();
             entrada.nextLine();
@@ -181,9 +197,11 @@ public class Principal {
                     }
                     
                     break;
-
                 case 2:
-                    System.out.print("\nMarcar como completado el pedido? (s/n)\n");
+                    menuPlatillos(); 
+                    break;
+                case 3:
+                    System.out.print("\n¿Marcar como completado el pedido? (s/n)\n");
                     if(restaurante.getPedidos().isEmpty())
                     {
                         gestor.buscarpedidoymarcar();
@@ -204,28 +222,28 @@ public class Principal {
                     
                     break;
 
-                case 3:
-                    System.out.println("Saliendo del menu..");
+                case 4:
+                    System.out.println("Saliendo del menú...");
                     break;
             
                 default:
-                    System.out.println("Opcion invalida");
+                    System.out.println("Opción invalida");
                     break;
             }
 
-        } while (opcion != 3);
+        } while (opcion != 4);
     }
 
     public static void menuGerente() {
         int opcion;
         do {
-            System.out.println("\nMenu de opciones:");
+            System.out.println("\nMenú de opciones:");
             System.out.println("1. Analizar ventas");
             System.out.println("2. Agregar platillo");
             System.out.println("3. Agregar mesa");
             System.out.println("4. Buscar mesa por consumo");
             System.out.println("5. Salir");
-            System.out.print("Opcion: ");
+            System.out.print("Opción: ");
             opcion = entrada.nextInt();
             entrada.nextLine();
 
@@ -259,7 +277,7 @@ public class Principal {
                     break;
 
                 case 3:
-                    System.out.print("Ingrese el numero de mesa: ");
+                    System.out.print("Ingrese el número de mesa: ");
                     int numero = entrada.nextInt();
                     entrada.nextLine();
 
@@ -272,7 +290,7 @@ public class Principal {
                     }
 
                     if (existe) {
-                        System.out.println("Ya se tiene una mesa con este numero");
+                        System.out.println("Ya se tiene una mesa con este número");
                     } else {
                         restaurante.agregarMesa(new Mesa(numero));
                         System.out.println("Mesa agregada");
@@ -285,21 +303,56 @@ public class Principal {
                     int numeroMesa = gestor.consumoMesa(consumo);
 
                     if (numeroMesa == -1) {
-                        System.out.println("No se encontro una mesa con este consumo");
+                        System.out.println("No se encontró una mesa con este consumo");
                     } else {
-                        System.out.println("La mesa con el consumo de " + consumo + " es la numero " + numeroMesa);
+                        System.out.println("La mesa con el consumo de $" + consumo + " es la número " + numeroMesa);
                     }
                     break;
 
                 case 5:
-                    System.out.println("Saliendo del menu..");
+                    System.out.println("Saliendo del menú...");
                     break;
             
                 default:
-                    System.out.println("Opcion invalida");
+                    System.out.println("Opción invalida");
                     break;
             }
             
         } while (opcion != 5);
     }
+
+    public static void menuPlatillos() {
+    int opcion;
+    do{
+        System.out.println("\nSeleccionar categoría");
+        System.out.println("1. Entradas");
+        System.out.println("2. Platos fuertes");
+        System.out.println("3. Postres");
+        System.out.println("4. Regresar");
+        System.out.print("Opción: ");
+        opcion = entrada.nextInt();
+        entrada.nextLine();
+
+        switch(opcion)
+        {
+            case 1: 
+                gestor.ordenarCocina(opcion);
+                break;
+            case 2:
+                gestor.ordenarCocina(opcion);
+                break;
+            case 3:
+                gestor.ordenarCocina(opcion);
+                break;
+            case 4:
+                System.out.println("Regresando...");
+                break;
+            default:
+                System.out.println("Opción inválida");
+                break;
+        }
+    } while(opcion !=4);
 }
+
+}
+

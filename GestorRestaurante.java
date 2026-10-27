@@ -26,8 +26,14 @@ public class GestorRestaurante {
         }
     }
 
-    public void ordenarCocina() //Trabajar con la lista de platillos
+     public void ordenarCocina(int categoria) //Trabajar con la lista de platillos
     {
+        if(this.listaPlatillos.isEmpty())
+        {
+            System.out.println("No hay platillos pendientes en la cocina");
+            return;
+        }
+
         int ordenado;
         int tamano = this.listaPlatillos.size();
         for(int i=tamano-1; i>=0; i--)
@@ -55,6 +61,31 @@ public class GestorRestaurante {
             {
                 break;
             }
+        }
+
+        String nombre = "";
+        if(categoria == 1)
+            nombre = "Entradas";
+        else if(categoria == 2)
+            nombre = "Platos Fuertes";
+        else if(categoria == 3)
+            nombre = "Postres";
+        
+        System.out.println(nombre.toUpperCase());
+        boolean encontrado = false;
+        for(Platillo platillo : this.listaPlatillos)
+        {
+            if(platillo.getCategoria() == categoria)
+            {
+                LocalTime hora = horaPedido(platillo);
+                System.out.println("- "+platillo.getNombre()+" "+hora);
+                encontrado = true;
+            }
+        }
+
+        if(!encontrado)
+        {
+            System.out.println("No hay platillos pendientes");
         }
     }
     
