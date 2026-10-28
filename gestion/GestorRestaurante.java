@@ -3,6 +3,8 @@ package gestion;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import restaurante.Mesa;
 import restaurante.Pedido;
 import restaurante.Platillo;
 
@@ -21,6 +23,11 @@ public class GestorRestaurante {
         this.listaPlatillos = new ArrayList<>();
         this.pedidoscomp = new ArrayList<>();
         this.venta = new ArrayList<>();
+    }
+
+    public ArrayList<Pedido> getPedidosCompletados()
+    {
+        return this.pedidoscomp;
     }
 
     public void inicializarListaPlatillos(Pedido nuevoPedido){
@@ -93,25 +100,27 @@ public class GestorRestaurante {
         }
     }
     
-    public void buscarEstadoPedido(int id)
-    {
-        int encontrado = 0;
+    public void buscarEstadoPedido(int id) {
         int capacidad = 101;
         int direccionBuscar = id % capacidad;
         ArrayList<ArrayList<Pedido>> tablaHash = funcionHash();
         ArrayList<Pedido> obtener = tablaHash.get(direccionBuscar);
-        
-        for(int i = 0; i<obtener.size(); i++)
+
+        boolean encontrado = false;
+        for(int i = 0; i < obtener.size(); i++)
         {
-            if(obtener.get(i).getIdPedido() == id){
-                String estado = obtener.get(i).getEstatus() ? "Completado":"Pendiente";
-                System.out.println("El pedido "+obtener.get(i).getIdPedido()+" se encuentra "+estado);
-                encontrado = 1;
+            if(obtener.get(i).getIdPedido() == id)
+            {
+                String estado = obtener.get(i).getEstatus() ? "Completado" : "Pendiente";
+                System.out.println("El pedido " + obtener.get(i).getIdPedido() + " se encuentra " + estado);
+                encontrado = true;
                 break;
             }
         }
-        if(encontrado == 0){
-            System.out.println("El pedido "+id+" no se encontró");
+
+        if(!encontrado)
+        {
+            System.out.println("El pedido " + id + " no se encontró");
         }
     }
 // metodo para generar un id de un pedido
@@ -128,10 +137,27 @@ public class GestorRestaurante {
             System.out.println("\nNo hay pedidos pendientes por completar");
             return;
         }
-        this.listaPedidos.get(0).setEstatus(true);
+        
         Pedido pedidolisto = this.listaPedidos.remove(0);
+        pedidolisto.setEstatus(true);
         this.pedidoscomp.add(pedidolisto);
+        this.listaPlatillos.removeAll(pedidolisto.getListaPlatillos());
         System.out.println("\nEl pedido "+pedidolisto.getIdPedido()+" ha sido completado y está listo para entregar");
+        
+        Mesa mesa = pedidolisto.getMesa();
+        boolean tienePendientes = false;
+        for (Pedido pedido : this.listaPedidos) {
+            if (pedido.getMesa().getNumMesa() == mesa.getNumMesa()) {
+                tienePendientes = true;
+                break;
+            }
+        }
+
+        if (!tienePendientes) {
+            mesa.setOcupada(false);
+            System.out.println("\nLa cuenta final de la mesa fue de $" + mesa.getCuentaTotal());
+        }
+            
     }
 
 
@@ -158,19 +184,20 @@ public class GestorRestaurante {
     {
         boolean encontrado = false;
         System.out.println("\nPlatillos que contienen el alérgeno: "+alergeno);
-        for(int i=0; i<this.menuGeneral.size(); i++)
-        {
+        for(int i=0; i<this.menuGeneral.size(); i++){
+            boolean contiene = false;
             for(String alergenos : this.menuGeneral.get(i).getIngredientes())
             {
                 if(alergenos.trim().equalsIgnoreCase(alergeno.trim()))
                 {
-                   encontrado = true;
-                   break; 
-                }  
+                    contiene = true;
+                    break;
+                }
             }
-            if(encontrado)
+            if(contiene)
             {
-               System.out.println((i+1)+". "+this.menuGeneral.get(i).getNombre()); 
+                encontrado = true;
+                System.out.println((i+1)+". "+this.menuGeneral.get(i).getNombre());
             }
         }
         if(!encontrado)
@@ -215,20 +242,23 @@ public class GestorRestaurante {
         return -1;
     }
 
-    private ArrayList<ArrayList<Pedido>> funcionHash(){
+    private ArrayList<ArrayList<Pedido>> funcionHash() {
         int capacidad = 101;
         ArrayList<ArrayList<Pedido>> listaColisiones = new ArrayList<>(capacidad);
 
-        for(int j=0; j<capacidad; j++)
+        for(int j = 0; j < capacidad; j++)
         {
-            listaColisiones.add(new ArrayList<> ());
+            listaColisiones.add(new ArrayList<>());
         }
 
-        for(int i= 0; i<this.listaPedidos.size(); i++)
+        ArrayList<Pedido> todos = new ArrayList<>(this.listaPedidos);
+        todos.addAll(this.pedidoscomp);
+
+        for(int i = 0; i < todos.size(); i++)
         {
-            int clave = this.listaPedidos.get(i).getIdPedido();
+            int clave = todos.get(i).getIdPedido();
             int direccion = clave % capacidad;
-            listaColisiones.get(direccion).add(this.listaPedidos.get(i));
+            listaColisiones.get(direccion).add(todos.get(i));
         }
         return listaColisiones;
     }
