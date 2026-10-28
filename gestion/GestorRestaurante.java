@@ -115,13 +115,13 @@ public class GestorRestaurante {
         }
     }
 // metodo para generar un id de un pedido
-    public int idrandom(){
+    public int idRandom(){
 
-        int idaleat = ThreadLocalRandom.current().nextInt(10000,100000);
-        return  idaleat;
+        int idAleat = ThreadLocalRandom.current().nextInt(10000,100000);
+        return  idAleat;
     }
 // Implemente un metodo parecido al anterior que busca el estado de un pedido
-    public void buscarpedidoymarcar()
+    public void buscarPedidoMarcar()
     {
         if(this.listaPedidos.isEmpty())
         {
@@ -179,7 +179,7 @@ public class GestorRestaurante {
         }
     }
     
-    public int consumoMesa(float consumo)
+    public int consumoMesa(int consumo)
     {
         this.venta.clear();
         this.venta.addAll(this.listaPedidos);
@@ -307,7 +307,7 @@ public class GestorRestaurante {
         
     }
 
-    }
+}
 
     
 

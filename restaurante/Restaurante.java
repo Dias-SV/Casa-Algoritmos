@@ -1,4 +1,5 @@
 package restaurante;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,7 +8,7 @@ public class Restaurante {
     private ArrayList<Platillo> platillos = new ArrayList<>();
     private ArrayList<Mesa> mesas = new ArrayList<>();
 
-    public Restaurante() { //Para testing
+    public Restaurante() {
         cargarPlatillos();
         cargarMesas();
     }
@@ -28,7 +29,7 @@ public class Restaurante {
         return mesas; 
     }
 
-    public void cargarPlatillos() { //Probicional, se debe que arreglar como se aborda
+    public void cargarPlatillos() {
         platillos.add(new Platillo("Sopa de fideo", 1, 119, new ArrayList<>(Arrays.asList("Caldo de res", "Fideo", "Cebolla", "Perejil", "Ajo", "Pimienta", "Sal", "Aceite de olivo", "Manteca", "Queso añejo"))));
         platillos.add(new Platillo("Ejotes de fonda", 1, 86, new ArrayList<>(Arrays.asList("Ejote verde", "Mantequilla", "Limón", "Perifollo", "Sal", "Pimienta"))));
         platillos.add(new Platillo("Tamales de escamoles", 1, 327, new ArrayList<>(Arrays.asList("Escamoles", "Nopal", "Epazote", "Chile verde", "Totomoxtle", "Orégano", "Sal"))));

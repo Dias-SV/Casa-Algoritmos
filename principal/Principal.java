@@ -1,4 +1,5 @@
 package principal;
+
 import empleados.Cocinero;
 import empleados.Empleado;
 import empleados.Gerente;
@@ -19,8 +20,7 @@ public class Principal {
 
     public static void main(String[] args) {
         int opcion = 0;
-        boolean condition = true;
-        
+
         do {
             Empleado empleado;
             System.out.println("\nElige tu puesto:");
@@ -28,6 +28,7 @@ public class Principal {
             System.out.println("2. Cocinero");
             System.out.println("3. Gerente");
             System.out.println("4. Salir");
+            System.out.print("Opcion: ");
             opcion = entrada.nextInt();
             entrada.nextLine(); //Limpiar buffer
 
@@ -99,14 +100,14 @@ public class Principal {
                         else if(platillos.getCategoria()== 3)
                             nombre = "Postres";
 
-                        System.out.println("- "+platillos.getNombre()+". $"+platillos.getPrecio());
+                        System.out.println("- "+platillos.getNombre()+". $"+platillos.getPrecio() + ". Categoria: " + nombre);
                     }
                     System.out.print("\nNúmero de mesa: ");
                     int numeroMesa = entrada.nextInt();
                     entrada.nextLine();
 
                     Mesa mesa = null;
-                    for (Mesa mesas : restaurante.getMesas()) { //Cambiar a busqueda hash tal vez
+                    for (Mesa mesas : restaurante.getMesas()) {
                         if (mesas.getNumMesa() == numeroMesa) {
                             mesa = mesas;
                             break;
@@ -151,7 +152,7 @@ public class Principal {
                         System.out.println("No es posible registrar un pedido sin un platillo");
                         break;
                     }
-                    int idAsignado = gestor.idrandom();
+                    int idAsignado = gestor.idRandom();
                     mesa.setOcupada(true);
                     mesa.setCuentaTotal(cuenta);
 
@@ -230,7 +231,7 @@ public class Principal {
                     System.out.print("\n¿Marcar como completado el pedido? (s/n)\n");
                     if(restaurante.getPedidos().isEmpty())
                     {
-                        gestor.buscarpedidoymarcar();
+                        gestor.buscarPedidoMarcar();
                         break;    
                     }
                     
@@ -240,7 +241,7 @@ public class Principal {
                     
                     
                         if (confirmacion.equalsIgnoreCase("s")) {
-                            gestor.buscarpedidoymarcar();
+                            gestor.buscarPedidoMarcar();
                         } else {
                             System.out.println("No se ha marcado ningún pedido como completado ");
                         }   
@@ -313,7 +314,7 @@ public class Principal {
                     entrada.nextLine();
 
                     boolean existe = false;
-                    for (Mesa mesa : restaurante.getMesas()) { //Se puede mejorar haciendo una tabla hash
+                    for (Mesa mesa : restaurante.getMesas()) {
                         if (mesa.getNumMesa() == numero) {
                             existe = true;
                             break;
