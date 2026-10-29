@@ -30,7 +30,7 @@ public class Principal {
             System.out.println("4. Salir");
             System.out.print("Opcion: ");
             opcion = entrada.nextInt();
-            entrada.nextLine(); //Limpiar buffer
+            entrada.nextLine(); 
 
             switch (opcion) {
                 case 1:
@@ -88,7 +88,7 @@ public class Principal {
             entrada.nextLine();
 
             switch (opcion) {
-                case 1: //Todo esto probablemente lo cambie
+                case 1: 
                     System.out.println("\n---- MENÚ DE RESTAURANTE ----");
                     for(Platillo platillos : restaurante.getPlatillos())
                     {
@@ -159,7 +159,7 @@ public class Principal {
                     mesa.setCuentaTotal(mesa.getCuentaTotal() + cuenta);
 
                     Pedido pedido = new Pedido(idAsignado, mesa, platillos, LocalTime.now());
-                    restaurante.agregarPedido(pedido); //ahora ya cada pedido genera un id random
+                    restaurante.agregarPedido(pedido); 
                     gestor.inicializarListaPlatillos(pedido);
                     System.out.println("ID del pedido: "+idAsignado);
                     break;

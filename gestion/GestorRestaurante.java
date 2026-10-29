@@ -3,15 +3,14 @@ package gestion;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
 import restaurante.Mesa;
 import restaurante.Pedido;
 import restaurante.Platillo;
 
 public class GestorRestaurante {
     private ArrayList<Pedido> listaPedidos;
-    private ArrayList<Platillo> menuGeneral; //No se toca a menos que gerente agregue un nuevo platillo
-    private ArrayList<Platillo> listaPlatillos; //Lista para ordenar las categorias (no sale de la clase)
+    private ArrayList<Platillo> menuGeneral; 
+    private ArrayList<Platillo> listaPlatillos; 
     private ArrayList<Pedido> pedidoscomp;
     private ArrayList<Pedido> venta;
 
@@ -37,7 +36,7 @@ public class GestorRestaurante {
         }
     }
 
-     public void ordenarCocina(int categoria) //Trabajar con la lista de platillos
+     public void ordenarCocina(int categoria)
     {
         if(this.listaPlatillos.isEmpty())
         {
@@ -123,13 +122,13 @@ public class GestorRestaurante {
             System.out.println("El pedido " + id + " no se encontró");
         }
     }
-// metodo para generar un id de un pedido
+
     public int idRandom(){
 
         int idAleat = ThreadLocalRandom.current().nextInt(10000,100000);
         return  idAleat;
     }
-// Implemente un metodo parecido al anterior que busca el estado de un pedido
+
     public void buscarPedidoMarcar()
     {
         if(this.listaPedidos.isEmpty())
